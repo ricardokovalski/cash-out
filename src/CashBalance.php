@@ -1,15 +1,15 @@
 <?php
 
-namespace CashBalance;
+namespace CashOut;
 
-class CashBalance
+class CashOutService
 {
     private $credit = 0.00;
     private $debit = 0.00;
     private $balance;
 
     /**
-     * CashBalance constructor.
+     * CashOut constructor.
      * @param float $amount
      */
     public function __construct($amount = 0.00)
