@@ -1,6 +1,6 @@
 <?php
 
-namespace CashBalance\Contracts;
+namespace CashOut\Contracts;
 
 interface User
 {

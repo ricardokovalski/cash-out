@@ -1,32 +1,39 @@
 <?php
 
-namespace CashBalance\Users;
+namespace CashOut\Users;
 
-use CashBalance\CashBalance;
-use CashBalance\Contracts\User;
+use CashOut\Contracts\Account;
+use CashOut\Contracts\User;
 
 class Producer implements User
 {
-    /**
-     * @var CashBalance
-     */
-    private $cashBalance;
+    private $accounts = [];
 
-    /**
-     * @param CashBalance $cashBalance
-     * @return $this
-     */
-    public function makeCashBalance(CashBalance $cashBalance)
+    public function addAccount(Account $account)
     {
-        $this->cashBalance = $cashBalance;
+        array_push($this->accounts, $account);
         return $this;
     }
 
+    public function getAccounts()
+    {
+        return $this->accounts;
+    }
+
     /**
+     * @param $number
      * @return mixed
      */
-    public function getCashBalance()
+    public function getAccount($number)
     {
-        return $this->cashBalance;
+        $accounts = array_filter($this->getAccounts(), function (Account $account) use ($number) {
+            return $account->getNumber() == $number;
+        });
+
+        if (! $accounts) {
+            throw new \InvalidArgumentException('Account not found.', 404);
+        }
+
+        return current($accounts);
     }
 }
